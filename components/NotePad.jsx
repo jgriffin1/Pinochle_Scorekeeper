@@ -33,6 +33,12 @@ function NotePad(props) {
             borderStyle: 'solid',
             borderRightColor: color_paper_red,
             borderRightWidth: 2,
+        },
+        body:{ //this doesn't contribute to the notepad styling
+            flex: 1, //fills space
+            height: header_height,
+            textAlign: 'left',
+            verticalAlign: 'middle',
         }
     });
     
@@ -65,24 +71,36 @@ function NotePad(props) {
             flex: 1,
             height: line_height,
             borderTopColor: color_paper_blue,
-            borderTopWidth: 2
+            borderTopWidth: 2,
         }
     })
+
+    const textStyles = StyleSheet.create({
+        titleText: {
+            height: header_height,
+            textAlignVertical: 'bottom',
+            fontSize: 30,
+        }
+    })
+
 
     return (
         <>
             {/* Header */}
             <View style={notepad_header.parent}>
                 <View style={notepad_header.leftMargin} />
-                <View style={notepad_header.redLine2} ></View>
+                <View style={notepad_header.redLine2} />
+                <View style={notepad_header.body}> 
+                    <Text style={textStyles.titleText}>Pinochle</Text>
+                </View>
             </View>
 
             {/* Rest of page: */}
-            {Array.from({ length: props.rows }, () => (
-                <View style={notepad_line.parent}>
+            {Array.from({ length: props.rows }, (obj, index) => (
+                <View style={notepad_line.parent} key={index}>
                     <View style={notepad_line.marginLeft} />
-                    <View style={notepad_line.redLine2} ></View>
-                    <View style={notepad_line.blueLineFinisher} ></View>
+                    <View style={notepad_line.redLine2} />
+                    <View style={notepad_line.blueLineFinisher} />
                 </View>
             ))}
         </>

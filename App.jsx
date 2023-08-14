@@ -15,7 +15,6 @@ import NotePad from './components/NotePad';
 import {
   Colors,
   DebugInstructions,
-  Header,
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
@@ -36,7 +35,6 @@ function App() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
 
         <NotePad rows={100} />
       </ScrollView>
