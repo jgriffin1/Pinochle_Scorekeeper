@@ -67,7 +67,7 @@ function NotePad(props) {
             borderTopColor: color_paper_blue,
             borderTopWidth: 2
         },
-        blueLineFinisher: {
+        body: {
             flex: 1,
             height: line_height,
             borderTopColor: color_paper_blue,
@@ -90,7 +90,7 @@ function NotePad(props) {
             <View style={notepad_header.parent}>
                 <View style={notepad_header.leftMargin} />
                 <View style={notepad_header.redLine2} />
-                <View style={notepad_header.body}> 
+                <View style={notepad_header.body}>
                     <Text style={textStyles.titleText}>Pinochle</Text>
                 </View>
             </View>
@@ -100,7 +100,9 @@ function NotePad(props) {
                 <View style={notepad_line.parent} key={index}>
                     <View style={notepad_line.marginLeft} />
                     <View style={notepad_line.redLine2} />
-                    <View style={notepad_line.blueLineFinisher} />
+                    <View style={notepad_line.body}>
+                        {!!props.children ? <props.children /> : null}
+                    </View>
                 </View>
             ))}
         </>
