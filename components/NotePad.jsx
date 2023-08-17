@@ -4,7 +4,7 @@ import {
     Text,
   } from 'react-native';
 
-function NotePad(props) {
+function NotePad({ ...props}) {
     const color_paper_yellow = props.backgroundColor || "#fff4b4";
     const color_paper_blue = props.horizontalLines || "#8ec6e1"
     const color_paper_red = props.vertialLines || "#f8957b"
@@ -72,7 +72,8 @@ function NotePad(props) {
             height: line_height,
             borderTopColor: color_paper_blue,
             borderTopWidth: 2,
-        }
+            flexDirection: 'row',
+        },
     })
 
     const textStyles = StyleSheet.create({
@@ -81,8 +82,27 @@ function NotePad(props) {
             textAlignVertical: 'bottom',
             fontSize: 30,
         }
+
     })
 
+    function NotepadChild ({...props}) {
+        const childStyles = StyleSheet.create({
+            viewStyle: {
+                width: `${Math.floor(Number(100/props.rowData.length)).toString()}%`,
+            },
+            textStyle: {
+                textAlign: 'center'
+            }
+        })
+
+        return (
+          <>
+            {props.rowData.map((text, i) => (
+              <View key={i} style={childStyles.viewStyle}><Text style={childStyles.textStyle}>{text}</Text></View>
+            ))}
+          </>
+        )
+    }
 
     return (
         <>
@@ -96,15 +116,17 @@ function NotePad(props) {
             </View>
 
             {/* Rest of page: */}
-            {Array.from({ length: props.rows }, (obj, index) => (
-                <View style={notepad_line.parent} key={index}>
-                    <View style={notepad_line.marginLeft} />
-                    <View style={notepad_line.redLine2} />
-                    <View style={notepad_line.body}>
-                        {!!props.children ? <props.children /> : null}
+            {props.dataList.map((obj, index) => {
+                return(
+                    <View style={notepad_line.parent} key={index}>
+                        <View style={notepad_line.marginLeft} />
+                        <View style={notepad_line.redLine2} />
+                        <View style={notepad_line.body}>
+                            <NotepadChild rowData={obj} />
+                        </View>
                     </View>
-                </View>
-            ))}
+                )
+            })}
         </>
 
     )

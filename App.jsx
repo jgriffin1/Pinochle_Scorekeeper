@@ -14,9 +14,6 @@ import NotePad from './components/NotePad';
 
 import {
   Colors,
-  DebugInstructions,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 function App() {
@@ -25,6 +22,13 @@ function App() {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const test111 =  [  
+      ['us',  'them', 'bob'],
+      ['text 1',  'txt 2', 'text 3'],
+      ['text 1',  'txt 2', 'text 3'],
+      ['text 1',  'txt 2', 'text 3'],
+   ]
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -35,8 +39,7 @@ function App() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-
-        <NotePad rows={100} />
+        <NotePad dataList={test111} />
       </ScrollView>
     </SafeAreaView>
   );
