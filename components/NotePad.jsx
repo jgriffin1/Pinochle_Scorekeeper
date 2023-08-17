@@ -7,7 +7,7 @@ import {
 function NotePad({ ...props}) {
     const color_paper_yellow = props.backgroundColor || "#fff4b4";
     const color_paper_blue = props.horizontalLines || "#8ec6e1"
-    const color_paper_red = props.vertialLines || "#f8957b"
+    const color_paper_red = props.verticalLines || "#f8957b"
     const header_height = props.headerHeight || 80;
     const line_height = props.lineHeight || 30;
 
@@ -115,7 +115,7 @@ function NotePad({ ...props}) {
                 </View>
             </View>
 
-            {/* Rest of page: */}
+            {/* rows with data: */}
             {props.dataList.map((obj, index) => {
                 return(
                     <View style={notepad_line.parent} key={index}>
@@ -123,6 +123,16 @@ function NotePad({ ...props}) {
                         <View style={notepad_line.redLine2} />
                         <View style={notepad_line.body}>
                             <NotepadChild rowData={obj} />
+                        </View>
+                    </View>
+                )
+            })}
+            {[...Array(29)].map((obj, index) => {
+                return(
+                    <View style={notepad_line.parent} key={index}>
+                        <View style={notepad_line.marginLeft} />
+                        <View style={notepad_line.redLine2} />
+                        <View style={notepad_line.body}>
                         </View>
                     </View>
                 )
