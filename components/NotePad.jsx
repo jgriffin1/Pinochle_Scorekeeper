@@ -127,7 +127,7 @@ function NotePad({ ...props}) {
                     </View>
                 )
             })}
-            {[...Array(29)].map((obj, index) => {
+            {[...Array(40)].map((obj, index) => {
                 return(
                     <View style={notepad_line.parent} key={index}>
                         <View style={notepad_line.marginLeft} />
