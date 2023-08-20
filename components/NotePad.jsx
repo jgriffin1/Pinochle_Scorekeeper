@@ -93,7 +93,9 @@ const NotePad = props => {
   });
 
   const NotepadChild = props => {
-    //props.rowData = {text: ['text 1',  'txt 2', 'text 3'], styles:{color: 'red'}},
+    //props.rowData = {text: ['text 1',  'txt 2', 'text 3'], rowStyle:{color: 'red'}},
+    //props.rowData = {text: ['text 1',  'txt 2', 'text 3'], rowStyle:{color: 'red'}, cellStyle: [{color: 'blue'},{color: 'green'}, {color: 'purple'}]},
+
     const childStyles = StyleSheet.create({
       viewStyle: {
         width: `${Math.floor(Number(100 / props.rowData.text.length)).toString()}%`,
@@ -105,8 +107,20 @@ const NotePad = props => {
 
     return (
       <>
-        {props.rowData.text.map((obj, i) => (
-          <View key={i} style={childStyles.viewStyle}><Text style={[childStyles.textStyle, props.rowData.styles]}>{obj}</Text></View>
+        {props.rowData.text.map((obj, index) => (
+          <View
+            key={index}
+            style={childStyles.viewStyle}>
+            <Text
+              style={[
+                childStyles.textStyle, 
+                props.rowData.rowStyle,
+                props.rowData.cellStyle ? props.rowData.cellStyle[index] : {},
+              ]}
+            >
+              {obj}
+            </Text>
+          </View>
         ))}
       </>
     )
@@ -137,16 +151,16 @@ const NotePad = props => {
       })}
 
       {/* Fill rest of screen with empty lines */}
-      {(!!orientation && extra_lines > 0) && 
+      {(!!orientation && extra_lines > 0) &&
         [...Array(extra_lines)].map((obj, index) => {
-        return (
-          <View style={notepad_line.parent} key={index}>
-            <View style={notepad_line.marginLeft} />
-            <View style={notepad_line.redLine2} />
-            <View style={notepad_line.body} />
-          </View>
-        )
-      })}
+          return (
+            <View style={notepad_line.parent} key={index}>
+              <View style={notepad_line.marginLeft} />
+              <View style={notepad_line.redLine2} />
+              <View style={notepad_line.body} />
+            </View>
+          )
+        })}
     </>
   )
 }

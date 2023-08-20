@@ -29,11 +29,10 @@ function App() {
       ['text 1',  'txt 2', 'text 3'],
       ['text 1',  'txt 2', 'text 3'],
    ]
-
   const test2 =  [  
       {text: ['us',  'them', 'bob'], styles:{}},
-      {text: ['text 1',  'txt 2', 'text 3'], styles:{color: 'red'}},
-      {text: ['text 1',  'txt 2', 'text 3'], styles:{}},
+      {text: ['text 1',  'txt 2', 'text 3'], rowStyle:{color: 'red'}, cellStyle: [{color: 'blue'},{color: 'green'}, {color: 'purple'}]},
+      {text: ['text 1',  'txt 2', 'text 3'], rowStyle:{color: 'red'}, cellStyle: [{borderTopColor: 'black', borderTopWidth: 2},{color: 'green'}, {color: 'purple'}]},
       {text: ['text 1',  'txt 2', 'text 3'], styles:{}},
    ]
 
