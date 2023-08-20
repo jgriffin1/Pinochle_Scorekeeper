@@ -15,8 +15,9 @@ export const newRow = (pStyle = {}, pCells = '') => {
 export const dataStyles = StyleSheet.create({
   names: {
     fontWeight: 'bold',
-    borderBottomWidth: 2,
+    // borderBottomWidth: 2,
     fontSize: 18,
+    textDecorationLine: 'underline',
   },
   sum: {
     borderTopWidth: 1,
