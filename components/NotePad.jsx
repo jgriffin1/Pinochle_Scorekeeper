@@ -108,7 +108,6 @@ const NotePad = props => {
     const childStyles = StyleSheet.create({
       viewStyle: {
         width: `${Math.floor(Number(100 / props.rowData.cells.length)).toString()}%`,
-        borderWidth: 1,
       },
       textStyle: {
         textAlign: 'center'
