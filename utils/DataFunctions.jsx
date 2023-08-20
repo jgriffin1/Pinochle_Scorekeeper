@@ -1,13 +1,30 @@
 //data.jsx
 //for demo data and data management
+import {
+  StyleSheet,
+} from 'react-native';
 
 export const newCell = (pText, pStyle) => {
-    return { text: pText, style: pStyle }
+  return { text: pText, style: pStyle }
 }
 
 export const newRow = (pStyle = {}, pCells = '') => {
-    return { rowStyle: pStyle, cells: pCells.map(c => newCell(c.text, c.style)) };
+  return { rowStyle: pStyle, cells: pCells.map(c => newCell(c.text, c.style)) };
 }
+
+export const dataStyles = StyleSheet.create({
+  names: {
+    fontWeight: 'bold',
+    borderBottomWidth: 2,
+    fontSize: 18,
+  },
+  sum: {
+    borderTopWidth: 1,
+  },
+  neg: {
+    color: 'red',
+  },
+});
 
 const cellTemp1 = { text: 'abc', cellStyle: { color: 'blue' } }
 const cellTemp2 = { text: 'def', cellStyle: { color: 'pink' } }
@@ -16,21 +33,21 @@ const rowTemp1 = { rowStyle: { color: 'green' }, cells: [cellTemp1, cellTemp2, c
 const rowTemp2 = { rowStyle: { color: 'green' }, cells: [newCell('cell func', { color: 'brown' }), cellTemp2, cellTemp3] }
 
 const test3 = [
-    rowTemp1,
-    rowTemp1,
-    newRow({}, [cellTemp3, cellTemp1]),
-    rowTemp2,
-    {
-        rowStyle: { color: 'blue', borderTopColor: 'red', borderTopWidth: 2 },
-        cells: [
-            newCell('function new', { borderTopColor: 'green', borderTopWidth: 4, borderBottomWidth: 2 }),
-            newCell('asdf1', { borderBottomWidth: 2 }),
-            newCell('asf2', { borderBottomWidth: 2, borderBottomColor: 'purple' }),
-            { text: 'manual new (bold)', style: { fontWeight: 'bold' } },
-        ]
-    },
+  rowTemp1,
+  rowTemp1,
+  newRow({}, [cellTemp3, cellTemp1]),
+  rowTemp2,
+  {
+    rowStyle: { color: 'blue', borderTopColor: 'red', borderTopWidth: 2 },
+    cells: [
+      newCell('function new', { borderTopColor: 'green', borderTopWidth: 4, borderBottomWidth: 2 }),
+      newCell('asdf1', { borderBottomWidth: 2 }),
+      newCell('asf2', { borderBottomWidth: 2, borderBottomColor: 'purple' }),
+      { text: 'manual new (bold)', style: { fontWeight: 'bold' } },
+    ]
+  },
 ]
 
 export const demoData = {
-    test3: test3,
+  test3: test3,
 }

@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-import {newCell, newRow, demoData } from './utils/DataFunctions'
+import {newCell, newRow, dataStyles ,demoData } from './utils/DataFunctions'
 
 import NotePad from './components/NotePad';
 
@@ -26,10 +26,12 @@ function App() {
   };
   
 
-  const rows = JSON.parse(JSON.stringify(demoData.test3)); //demo data
-
-  rows[2].cells[0].text = 'setting this';
-  rows[0].cells[1].text = 'did this copy eveywhere';
+  // const rows = JSON.parse(JSON.stringify(demoData.test3)); //demo data
+  const rows = [];
+  rows.push(newRow(dataStyles.names, [newCell('Us'), newCell('Them')]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
   rows.push(newRow({}, [newCell('test1'), newCell('test2'), newCell('test3')]));
 
   return (
