@@ -96,9 +96,19 @@ const NotePad = props => {
     //props.rowData = {text: ['text 1',  'txt 2', 'text 3'], rowStyle:{color: 'red'}},
     //props.rowData = {text: ['text 1',  'txt 2', 'text 3'], rowStyle:{color: 'red'}, cellStyle: [{color: 'blue'},{color: 'green'}, {color: 'purple'}]},
 
+    /**
+     * props.rowData = {
+        rowStyle: {color: 'blue', borderTopColor: 'red', borderTopWidth: 2},
+        cells: [
+          {text: 'manual new (bold)', style: {fontWeight: 'bold'}},
+          {text: 'manual new (bold)'},
+        ]
+      }
+     */
     const childStyles = StyleSheet.create({
       viewStyle: {
-        width: `${Math.floor(Number(100 / props.rowData.text.length)).toString()}%`,
+        width: `${Math.floor(Number(100 / props.rowData.cells.length)).toString()}%`,
+        borderWidth: 1,
       },
       textStyle: {
         textAlign: 'center'
@@ -107,7 +117,7 @@ const NotePad = props => {
 
     return (
       <>
-        {props.rowData.text.map((obj, index) => (
+        {props.rowData.cells.map((obj, index) => (
           <View
             key={index}
             style={childStyles.viewStyle}>
@@ -115,10 +125,10 @@ const NotePad = props => {
               style={[
                 childStyles.textStyle, 
                 props.rowData.rowStyle,
-                props.rowData.cellStyle ? props.rowData.cellStyle[index] : {},
+                obj.style,
               ]}
             >
-              {obj}
+              {obj.text}
             </Text>
           </View>
         ))}
