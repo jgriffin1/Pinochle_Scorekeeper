@@ -135,6 +135,18 @@ const NotePad = props => {
     )
   };
 
+  const marginMenu = [
+    <Text>(Menu 1)</Text>,
+    <Text>(Menu 2)</Text>,
+    <Text>(Menu 3)</Text>,
+    <Text>(Menu 4)</Text>,
+    <Text>(Menu 5)</Text>,
+    <Text>(Menu 6)</Text>,
+    <Text>(Menu 7)</Text>,
+    <Text>(Menu 8)</Text>,
+    <Text>(Menu 9)</Text>,
+  ]
+
   return (
     <>
       {/* Header */}
@@ -150,7 +162,9 @@ const NotePad = props => {
       {props.dataList.map((obj, index) => {
         return (
           <View style={notepad_line.parent} key={index}>
-            <View style={notepad_line.marginLeft} />
+            <View style={notepad_line.marginLeft}>
+                {marginMenu[index]}
+            </View>
             <View style={notepad_line.redLine2} />
             <View style={notepad_line.body}>
               <NotepadChild rowData={obj} />
@@ -164,7 +178,9 @@ const NotePad = props => {
         [...Array(extra_lines)].map((obj, index) => {
           return (
             <View style={notepad_line.parent} key={index}>
-              <View style={notepad_line.marginLeft} />
+              <View style={notepad_line.marginLeft}>
+                {(props.dataList.length+index < marginMenu.length) && marginMenu[props.dataList.length+index]}
+              </View>
               <View style={notepad_line.redLine2} />
               <View style={notepad_line.body} />
             </View>
