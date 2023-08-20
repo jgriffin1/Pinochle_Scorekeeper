@@ -5,6 +5,8 @@ import {
   Dimensions,
 } from 'react-native';
 
+import { useOrientation } from '../utils/useOrientation';
+
 const NotePad = props => {
   const color_paper_yellow = props.backgroundColor || "#fff4b4";
   const color_paper_blue = props.horizontalLines || "#8ec6e1"
@@ -15,6 +17,8 @@ const NotePad = props => {
   const window_height = Dimensions.get('window').height;
   const number_of_lines_on_screen = Math.floor(((window_height - header_height) / line_height));
   const extra_lines = number_of_lines_on_screen - props.dataList.length;
+
+  const orientation = useOrientation();
 
   const notepad_header = StyleSheet.create({
     parent: {
@@ -132,13 +136,13 @@ const NotePad = props => {
       })}
 
       {/* Fill rest of screen with empty lines */}
-      {(extra_lines > 0) && [...Array(extra_lines)].map((obj, index) => {
+      {(!!orientation && extra_lines > 0) && 
+        [...Array(extra_lines)].map((obj, index) => {
         return (
           <View style={notepad_line.parent} key={index}>
             <View style={notepad_line.marginLeft} />
             <View style={notepad_line.redLine2} />
-            <View style={notepad_line.body}>
-            </View>
+            <View style={notepad_line.body} />
           </View>
         )
       })}
