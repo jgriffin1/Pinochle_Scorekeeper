@@ -23,11 +23,18 @@ function App() {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const test111 =  [  
+  const test1 =  [  
       ['us',  'them', 'bob'],
       ['text 1',  'txt 2', 'text 3'],
       ['text 1',  'txt 2', 'text 3'],
       ['text 1',  'txt 2', 'text 3'],
+   ]
+
+  const test2 =  [  
+      {text: ['us',  'them', 'bob'], styles:{}},
+      {text: ['text 1',  'txt 2', 'text 3'], styles:{color: 'red'}},
+      {text: ['text 1',  'txt 2', 'text 3'], styles:{}},
+      {text: ['text 1',  'txt 2', 'text 3'], styles:{}},
    ]
 
   return (
@@ -39,7 +46,7 @@ function App() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <NotePad dataList={test111} />
+        <NotePad dataList={test2} />
       </ScrollView>
     </SafeAreaView>
   );

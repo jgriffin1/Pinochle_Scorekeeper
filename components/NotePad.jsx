@@ -93,9 +93,10 @@ const NotePad = props => {
   });
 
   const NotepadChild = props => {
+    //props.rowData = {text: ['text 1',  'txt 2', 'text 3'], styles:{color: 'red'}},
     const childStyles = StyleSheet.create({
       viewStyle: {
-        width: `${Math.floor(Number(100 / props.rowData.length)).toString()}%`,
+        width: `${Math.floor(Number(100 / props.rowData.text.length)).toString()}%`,
       },
       textStyle: {
         textAlign: 'center'
@@ -104,8 +105,8 @@ const NotePad = props => {
 
     return (
       <>
-        {props.rowData.map((text, i) => (
-          <View key={i} style={childStyles.viewStyle}><Text style={childStyles.textStyle}>{text}</Text></View>
+        {props.rowData.text.map((obj, i) => (
+          <View key={i} style={childStyles.viewStyle}><Text style={[childStyles.textStyle, props.rowData.styles]}>{obj}</Text></View>
         ))}
       </>
     )
