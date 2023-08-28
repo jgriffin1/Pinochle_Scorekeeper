@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 
 import { useOrientation } from '../utils/useOrientation';
@@ -16,7 +17,7 @@ const NotePad = props => {
 
   const window_height = Dimensions.get('window').height;
   const number_of_lines_on_screen = Math.floor(((window_height - header_height) / line_height));
-  const extra_lines = number_of_lines_on_screen - props.dataList.length;
+  const extra_lines = number_of_lines_on_screen - (props?.dataList?.length || 0);
 
   const orientation = useOrientation();
 
@@ -122,7 +123,7 @@ const NotePad = props => {
             style={childStyles.viewStyle}>
             <Text
               style={[
-                childStyles.textStyle, 
+                childStyles.textStyle,
                 props.rowData.rowStyle,
                 obj.style,
               ]}
@@ -149,43 +150,53 @@ const NotePad = props => {
 
   return (
     <>
-      {/* Header */}
-      <View style={notepad_header.parent}>
-        <View style={notepad_header.leftMargin} />
-        <View style={notepad_header.redLine2} />
-        <View style={notepad_header.body}>
-          <Text style={textStyles.titleText}>Pinochle</Text>
-        </View>
-      </View>
+      <ScrollView
+        scrollEnabled={!props.scrollLock}
+        nestedScrollEnabled={!props.scrollLock}
+        contentInsetAdjustmentBehavior="automatic"
+      >
+        {/* <NotePad dataList={rows} /> */}
 
-      {/* rows with data: */}
-      {props.dataList.map((obj, index) => {
-        return (
-          <View style={notepad_line.parent} key={index}>
-            <View style={notepad_line.marginLeft}>
-                {marginMenu[index]}
-            </View>
-            <View style={notepad_line.redLine2} />
-            <View style={notepad_line.body}>
-              <NotepadChild rowData={obj} />
-            </View>
+        {/* Header */}
+        <View style={notepad_header.parent}>
+          <View style={notepad_header.leftMargin} />
+          <View style={notepad_header.redLine2} />
+          <View style={notepad_header.body}>
+            <Text style={textStyles.titleText}>Pinochle</Text>
           </View>
-        )
-      })}
+        </View>
 
-      {/* Fill rest of screen with empty lines */}
-      {(!!orientation && extra_lines > 0) &&
-        [...Array(extra_lines)].map((obj, index) => {
+        {/* rows with data: */}
+        {props.dataList && props.dataList.map((obj, index) => {
           return (
             <View style={notepad_line.parent} key={index}>
               <View style={notepad_line.marginLeft}>
-                {(props.dataList.length+index < marginMenu.length) && marginMenu[props.dataList.length+index]}
+                {marginMenu[index]}
               </View>
               <View style={notepad_line.redLine2} />
-              <View style={notepad_line.body} />
+              <View style={notepad_line.body}>
+                <NotepadChild rowData={obj} />
+              </View>
             </View>
           )
         })}
+
+        {/* Fill rest of screen with empty lines */}
+        {(!!orientation && extra_lines > 0) &&
+          [...Array(extra_lines)].map((obj, index) => {
+            return (
+              <View style={notepad_line.parent} key={index}>
+                <View style={notepad_line.marginLeft}>
+                  {props.dataList && marginMenu && ((props.dataList.length + index) < marginMenu.length) 
+                    && marginMenu[props.dataList.length + index]
+                  }
+                </View>
+                <View style={notepad_line.redLine2} />
+                <View style={notepad_line.body} />
+              </View>
+            )
+          })}
+      </ScrollView>
     </>
   )
 }

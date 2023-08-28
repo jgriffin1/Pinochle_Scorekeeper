@@ -24,15 +24,46 @@ function App() {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  
 
-  // const rows = JSON.parse(JSON.stringify(demoData.test3)); //demo data
+  // #region Demo data
   const rows = [];
   rows.push(newRow(dataStyles.names, [newCell('Us'), newCell('Them')]));
   rows.push(newRow({}, [newCell('5'), newCell('10')]));
   rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
   rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
-  rows.push(newRow({}, [newCell('test1'), newCell('test2'), newCell('test3')]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  rows.push(newRow({}, [newCell('5'), newCell('10')]));
+  rows.push(newRow({}, [newCell('3'), newCell('-17', dataStyles.neg)]));
+  rows.push(newRow({}, [newCell('8', dataStyles.sum), newCell('-7', [dataStyles.neg, dataStyles.sum])]));
+  //#endregion
+  
+  let scrollLock = false;
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -40,11 +71,12 @@ function App() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <NotePad dataList={rows} />
-      </ScrollView>
+
+
+      <NotePad 
+        // dataList={rows} 
+        scrollLock={scrollLock}
+      />
     </SafeAreaView>
   );
 }
