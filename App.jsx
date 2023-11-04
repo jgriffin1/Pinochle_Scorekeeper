@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,17 +8,21 @@ import {
   useColorScheme,
   useWindowDimensions,
   View,
+  Pressable,
 } from 'react-native';
 
 import {newCell, newRow, dataStyles ,demoData } from './utils/DataFunctions'
 
-import NotePad from './components/NotePad';
+import NotePadPage from './components/NotePadPage';
+import NoteBook from './components/NoteBook';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
 function App() {
+  const [count, setCount] = useState(0);
+  
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -65,6 +69,90 @@ function App() {
   
   let scrollLock = false;
 
+  const testStyle = StyleSheet.create({
+    startMenuWrapper: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    },
+    startMenuTitle: {
+      marginTop: '50%',
+      textAlign: 'center',
+      borderWidth: 4,
+      fontSize: 30,
+      borderColor: 'green',
+      fontWeight: 'bold',
+    },
+    titleButton: {
+      marginTop: 20,
+      borderColor: "gray",
+      borderWidth: 3,
+      borderRadius: 1,
+      borderStyle: 'dotted',
+      width: '30%',
+      height: '5%',
+      alignSelf: 'center',
+      justifyContent: 'center'
+    },
+    titleButton_hover: {
+      // ...testStyle.titleButton,
+
+    },
+    titleButtonText: {
+      alignSelf: 'center',
+      fontSize: 20,
+      
+    },
+    titleButtonText_hover: {
+      // ...titleButtonText
+    }
+  })
+
+  const WelcomePage = () => {
+    return (
+      <>
+        <NotePadPage 
+          // dataList={rows}
+          scrollLock={true}
+          backgroundMode={true}
+        />
+        <View style={testStyle.startMenuWrapper}>
+          <Text style={testStyle.startMenuTitle}>Welcome {count}</Text>
+          <Pressable style={testStyle.titleButton} onPress={()=>setCount(c => c+1)}>
+            <Text style={testStyle.titleButtonText}>Start</Text>
+          </Pressable>
+        </View>
+      </>
+    )
+  }
+
+  const DataPage = ({rows}) => {
+    return (
+      <NotePadPage 
+        dataList={rows}
+        scrollLock={false}
+        backgroundMode={false}
+      />
+    )
+  }
+
+  const pages = [
+    <WelcomePage />,
+    <DataPage rows={rows} />,
+    <WelcomePage />,
+    <DataPage rows={rows} />,
+    <WelcomePage />,
+    <DataPage rows={rows} />,
+    <WelcomePage />,
+    <DataPage rows={rows} />,
+    <WelcomePage />,
+    <DataPage rows={rows} />,
+    <WelcomePage />,
+    <DataPage rows={rows} />,
+  ]
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -72,10 +160,11 @@ function App() {
         backgroundColor={backgroundStyle.backgroundColor}
       />
 
-
-      <NotePad 
-        // dataList={rows} 
-        scrollLock={scrollLock}
+      {/* <WelcomePage /> */}
+      {/* <DataPage rows={rows} /> */}
+      <NoteBook
+        pageList = {pages}
+        currPage = {0}
       />
     </SafeAreaView>
   );
