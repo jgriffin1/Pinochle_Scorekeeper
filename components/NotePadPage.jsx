@@ -90,7 +90,15 @@ const NotePadPage = props => {
       height: header_height,
       textAlignVertical: 'bottom',
       fontSize: 30,
-    }
+    },
+    menuText1: {
+      height: header_height,
+      textAlignVertical: 'bottom',
+    },
+    menuText2: {
+      height: line_height,
+      textAlignVertical: 'center',
+    },
   });
 
   const NotepadChild = props => {
@@ -136,17 +144,11 @@ const NotePadPage = props => {
     )
   };
 
-  const marginMenu = [
-    <Text>(Menu 1)</Text>,
-    <Text>(Menu 2)</Text>,
-    <Text>(Menu 3)</Text>,
-    <Text>(Menu 4)</Text>,
-    <Text>(Menu 5)</Text>,
-    <Text>(Menu 6)</Text>,
-    <Text>(Menu 7)</Text>,
-    <Text>(Menu 8)</Text>,
-    <Text>(Menu 9)</Text>,
-  ]
+  const MarginMenuItem = ({name, ...props}) => {
+    return (
+      <Text style={props.style ? props.style : textStyles.menuText2}>({name})</Text>
+    )
+  }
 
   return (
     <>
@@ -155,12 +157,13 @@ const NotePadPage = props => {
         nestedScrollEnabled={!props.scrollLock}
         contentInsetAdjustmentBehavior="automatic"
       >
-        {/* <NotePad dataList={rows} /> */}
 
         {/* Header */}
         <View style={notepad_header.parent}>
-          <View style={notepad_header.leftMargin} />
-          <View style={notepad_header.redLine2} />
+          <View style={notepad_header.leftMargin}>
+            <MarginMenuItem name={'Menu'} style={textStyles.menuText1} />
+          </View>
+          <View style={notepad_header.redLine2}/>
           <View style={notepad_header.body}>
             <Text style={textStyles.titleText}>
               {!props.backgroundMode && "Pinochle"}
@@ -173,7 +176,9 @@ const NotePadPage = props => {
           return (
             <View style={notepad_line.parent} key={index}>
               <View style={notepad_line.marginLeft}>
-                {marginMenu[index]}
+                {props && props.pageNames && props.pageNames[index] && 
+                  <MarginMenuItem name={props.pageNames[index]} />
+                }
               </View>
               <View style={notepad_line.redLine2} />
               <View style={notepad_line.body}>
@@ -186,18 +191,21 @@ const NotePadPage = props => {
         {/* Fill rest of screen with empty lines */}
         {(!!orientation && extra_lines > 0) &&
           [...Array(extra_lines)].map((obj, index) => {
+            let dataListLength = (props.dataList ? props.dataList.length : 0);
+            let marginIndex = dataListLength + index;
             return (
               <View style={notepad_line.parent} key={index}>
                 <View style={notepad_line.marginLeft}>
-                  {props.dataList && marginMenu && ((props.dataList.length + index) < marginMenu.length) 
-                    && marginMenu[props.dataList.length + index]
+                  {props && props.pageNames && props.pageNames[marginIndex] && 
+                    <MarginMenuItem name={props.pageNames[marginIndex]} />
                   }
                 </View>
                 <View style={notepad_line.redLine2} />
                 <View style={notepad_line.body} />
               </View>
             )
-          })}
+          }
+        )}
       </ScrollView>
     </>
   )
