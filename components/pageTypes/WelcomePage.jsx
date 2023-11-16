@@ -60,6 +60,12 @@ const WelcomePage = (props) => {
                 <Pressable style={welcomePageStyle.titleButton} onPress={() => props.setShowWelcome(false)}>
                     <Text style={welcomePageStyle.titleButtonText}>Start</Text>
                 </Pressable>
+                <Pressable style={welcomePageStyle.titleButton} onPress={() => props.primeStorage()}>
+                    <Text style={welcomePageStyle.titleButtonText}>Prime Storage? Maybe</Text>
+                </Pressable>
+                <Pressable style={welcomePageStyle.titleButton} onPress={() => props.deletePageById(7)}>
+                    <Text style={welcomePageStyle.titleButtonText}>Delete 7</Text>
+                </Pressable>
             </View>
         </>
     )

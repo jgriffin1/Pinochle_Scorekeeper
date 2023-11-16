@@ -53,7 +53,8 @@ export function getDummyPageData(count){
     for(let i = 0; i< count; i++){
         pages.push({
             rows: dummyRows(),
-            name: `page ${i+1}`
+            name: `page ${i+1}`,
+            id: i,
         })
     }
 
