@@ -4,6 +4,7 @@ import {
   Text,
   Dimensions,
   ScrollView,
+  Pressable,
 } from 'react-native';
 
 import { useOrientation } from '../utils/useOrientation';
@@ -144,9 +145,21 @@ const NotePadPage = props => {
     )
   };
 
-  const MarginMenuItem = ({name, ...props}) => {
+  const MarginMenuItem = ({name, ...MMIProps}) => {
+    //MMIProps = Margin Menu item props
+    //props = props from parent function
+
     return (
-      <Text style={props.style ? props.style : textStyles.menuText2}>({name})</Text>
+      <Pressable onPress={() => {
+          if(!!MMIProps.menuOption){
+            props.setShowWelcome(true);
+          }else{
+            props.setPageNumber(MMIProps.index)}
+          }
+        }
+      >
+        <Text style={MMIProps.style ? MMIProps.style : textStyles.menuText2}>({name})</Text>
+      </Pressable>
     )
   }
 
@@ -161,7 +174,7 @@ const NotePadPage = props => {
         {/* Header */}
         <View style={notepad_header.parent}>
           <View style={notepad_header.leftMargin}>
-            <MarginMenuItem name={'Menu'} style={textStyles.menuText1} />
+            <MarginMenuItem name={'Menu'} style={textStyles.menuText1} menuOption={true}/>
           </View>
           <View style={notepad_header.redLine2}/>
           <View style={notepad_header.body}>
@@ -177,7 +190,7 @@ const NotePadPage = props => {
             <View style={notepad_line.parent} key={index}>
               <View style={notepad_line.marginLeft}>
                 {props && props.pageNames && props.pageNames[index] && 
-                  <MarginMenuItem name={props.pageNames[index]} />
+                  <MarginMenuItem name={props.pageNames[index]} index={index} />
                 }
               </View>
               <View style={notepad_line.redLine2} />

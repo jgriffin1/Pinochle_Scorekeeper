@@ -51,6 +51,7 @@ const WelcomePage = (props) => {
             <NotePadPage
                 scrollLock={true}
                 backgroundMode={true}
+                setShowWelcome = {props.setShowWelcome}
             />
             <View style={welcomePageStyle.startMenuWrapper}>
                 <Text style={welcomePageStyle.startMenuTitle}>Welcome {count}</Text>

@@ -9,6 +9,8 @@ const DataPage = (props) => {
             backgroundMode={false}
             pages={props.pages || []}
             pageNames={props.pageNames || []}
+            setPageNumber={props.setPageNumber}
+            setShowWelcome = {props.setShowWelcome}
         />
     )
 }

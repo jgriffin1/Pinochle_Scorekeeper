@@ -1,11 +1,9 @@
 import {
     View,
     Text,
-  } from 'react-native';
-
+} from 'react-native';
 import { useState } from 'react';
-
-  import DataPage from './pageTypes/DataPage';
+import DataPage from './pageTypes/DataPage';
 
 const NoteBook = ({pageList, ...props}) => {
     const [pageNumber, setPageNumber] = useState( 0 );
@@ -25,6 +23,8 @@ const NoteBook = ({pageList, ...props}) => {
         <>
             <DataPage
                 pageNames = {pageNames}
+                setPageNumber = {setPageNumber}
+                setShowWelcome = {props.setShowWelcome}
                 {...pageList[pageNumber]}
             />
         </>

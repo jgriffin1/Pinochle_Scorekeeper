@@ -25,7 +25,6 @@ import {
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [pageList, setPageList] = useState([]); //this should not be stored here. Should be in page StorageManager or something
-  const [selectedPage, setSelectedPage] = useState({}); //this should not be stored here. Should be in page StorageManager or something
 
   useEffect(() => {
     getSavedPages().then((pages) => {
@@ -67,6 +66,7 @@ function App() {
       {!showWelcome && 
         <NoteBook
           pageList = {pageList}
+          setShowWelcome = {setShowWelcome}
         />
       }
       
