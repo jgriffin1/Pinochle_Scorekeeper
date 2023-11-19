@@ -17,7 +17,7 @@ import { dummyRows } from './utils/DummyData';
 
 import NotePadPage from './components/NotePadPage';
 import NoteBook from './components/NoteBook';
-import {getSavedPages, primeStorage, deletePageById} from './utils/PageStorageManager';
+import {getSavedPages, primeStorage, deletePageById, deletePage, savePage, saveAllPages,} from './utils/PageStorageManager';
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
@@ -25,6 +25,7 @@ import {
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [pageList, setPageList] = useState([]); //this should not be stored here. Should be in page StorageManager or something
+  const [selectedPage, setSelectedPage] = useState({}); //this should not be stored here. Should be in page StorageManager or something
 
   useEffect(() => {
     getSavedPages().then((pages) => {
@@ -32,11 +33,17 @@ function App() {
     });
   }, [getSavedPages, primeStorage, deletePageById])
 
-  const newPage = (data) => {
-    setPageList([...pageList, {...data}])
+  const newPage = async (page) => {
+    setPageList(await savePage(page));
   }
-  const clearPages = () => {
-    setPageList([])
+  const removePage = async (page) => {
+    setPageList(await deletePage(page))
+  }
+  const removePageById = async (id) => {
+    setPageList(await deletePageById(id))
+  }
+  const primeDummyData = () => {
+    setPageList(primeStorage())
   }
 
   const isDarkMode = useColorScheme() === 'dark';
@@ -54,8 +61,8 @@ function App() {
       {!!showWelcome && 
         <WelcomePage
           setShowWelcome = {setShowWelcome}
-          primeStorage = {primeStorage}
-          deletePageById = {deletePageById}
+          primeStorage = {primeDummyData}
+          deletePageById = {removePageById}
       />}
       {!showWelcome && 
         <NoteBook

@@ -7,7 +7,9 @@ import _ from 'lodash';
 import { useCallback } from "react";
 
 export function primeStorage() {
-    saveAllPages(getDummyPageData(10));
+    let pageList = getDummyPageData(10);
+    saveAllPages(pageList);
+    return pageList;
 }
 
 const storeData = async (key, obj) => {
@@ -64,48 +66,47 @@ export async function getSavedPages() {
 
 export function saveAllPages(pageList) {
     storeData(PAGE_LIST_KEY, pageList)
+    return pageList;
 }
 
+/**
+ * Overwrites page with same id or adds new page to end of list.
+*/
 export async function savePage(page) {
     let pageList = await getSavedPages();
 
+    let pageFound = false;
     for(let i = 0; i < pageList.length; i++){
         if(pageList[i].id === page.id){
             pageList[i] = page;
+            pageFound = true;
             break;
         }
     }
 
+    if(!pageFound){
+        pageList.push(page);
+    }
+
     saveAllPages(pageList);
+    return pageList;
 }
 
 export async function deletePage(page) {
-    deletePageById(page.id);
+    return deletePageById(page.id);
 }
 
-// export async function deletePageById(id) {
-//     let pageList = await getSavedPages();
+export async function deletePageById(id) {
+    let pageList = await getSavedPages();
 
-//     for(let i = 0; i < pageList.length; i++){
-//         if(pageList[i].id === id){
-//             pageList.splice(i, 1);
-//             break;
-//         }
-//     }
-
-//     saveAllPages(pageList);
-// }
-
-export function deletePageById(id) {
-    getSavedPages().then(pageList => {
-        for(let i = 0; i < pageList.length; i++){
-            if(pageList[i].id === id){
-                pageList.splice(i, 1);
-                break;
-            }
+    for(let i = 0; i < pageList.length; i++){
+        if(pageList[i].id === id){
+            pageList.splice(i, 1);
+            break;
         }
-        saveAllPages(pageList);
-    });
+    }
+    saveAllPages(pageList);
+    return pageList;
 }
 
 export async function getPageById(id) {
