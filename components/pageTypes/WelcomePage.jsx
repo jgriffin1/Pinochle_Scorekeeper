@@ -46,12 +46,16 @@ const WelcomePage = (props) => {
         }
     })
 
+    let pageNames = [];
+    props.pageList.forEach(p => pageNames.push(p.name));
+
     return (
         <>
             <NotePadPage
                 scrollLock={true}
                 backgroundMode={true}
                 setShowWelcome = {props.setShowWelcome}
+                pageNames={props.pageNames || []}
             />
             <View style={welcomePageStyle.startMenuWrapper}>
                 <Text style={welcomePageStyle.startMenuTitle}>Welcome {count}</Text>

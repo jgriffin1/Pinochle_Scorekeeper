@@ -12,9 +12,6 @@ import {
 } from 'react-native';
 
 import WelcomePage from './components/pageTypes/WelcomePage';
-
-import { dummyRows } from './utils/DummyData';
-
 import NotePadPage from './components/NotePadPage';
 import NoteBook from './components/NoteBook';
 import {getSavedPages, primeStorage, deletePageById, deletePage, savePage, saveAllPages,} from './utils/PageStorageManager';
@@ -44,6 +41,11 @@ function App() {
   const primeDummyData = () => {
     setPageList(primeStorage())
   }
+  const notebookFunctions = {
+    newPage: newPage,
+    removePage: removePage,
+    removePageById: removePageById,
+  }
 
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -62,11 +64,13 @@ function App() {
           setShowWelcome = {setShowWelcome}
           primeStorage = {primeDummyData}
           deletePageById = {removePageById}
+          pageList = {pageList}
       />}
       {!showWelcome && 
         <NoteBook
           pageList = {pageList}
           setShowWelcome = {setShowWelcome}
+          {...notebookFunctions}
         />
       }
       

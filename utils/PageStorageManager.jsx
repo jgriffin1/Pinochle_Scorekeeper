@@ -4,7 +4,6 @@
 import { getDummyPageData } from "./DummyData";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash';
-import { useCallback } from "react";
 
 export function primeStorage() {
     let pageList = getDummyPageData(10);
